@@ -1,0 +1,22 @@
+{
+  "name": "gatsby-starter-timeline-with-actionsflow",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "build:actionsflow": "actionsflow build",
+    "act": "act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-18.04=actionsflow/act-environment:v1"
+  },
+  "license": "0BSD",
+  "dependencies": {
+    "actionsflow": "^1.4.0",
+    "gatsby": "^2.24.85",
+    "gatsby-theme-timeline": "^0.1.27",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "theme-ui": "0.4.0-rc.5"
+  }
+}
