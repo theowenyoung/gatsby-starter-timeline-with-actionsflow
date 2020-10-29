@@ -7,7 +7,10 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "clean": "gatsby clean",
+    "local:workflow": "npm run build:actionsflow && npm run act:local",
     "build:actionsflow": "actionsflow build",
+    "clean:actionsflow": "actionsflow clean",
+    "act:local": "npm run act -- -b -j local",
     "act": "act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-18.04=actionsflow/act-environment:v1"
   },
   "license": "0BSD",

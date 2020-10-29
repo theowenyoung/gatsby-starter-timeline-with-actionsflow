@@ -75,3 +75,42 @@ jobs:
           publish_dir: ./public
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
+  local:
+    name: Only Sync Tweets to JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Create Tweet JSON
+        uses: actions/github-script@v2
+        with:
+          script: |
+            const path = require('path')
+            const fs = require('fs').promises
+            const outputs = ${{toJSON(on.twitter.outputs)}}
+            const promises = outputs.map((item) => {
+                const createdAt = new Date(Date.parse(item.created_at))
+                const tweetFilePath = `./data/tweets/${createdAt.getUTCFullYear()}/${createdAt.getUTCMonth()}/${item.id_str}.json`
+                return fs.mkdir(path.dirname(tweetFilePath), {
+                    recursive: true
+                }).then(()=>{
+                  return fs.writeFile(
+                      tweetFilePath,
+                      JSON.stringify(item, null, 2),
+                      {
+                        flag: "wx"
+                      }
+                  ).catch((e) => {
+                    if (e.code === "EEXIST") {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject(e);
+                    }
+                  });
+                })
+
+            });
+            await Promise.all(promises);
+            return outputs.length
