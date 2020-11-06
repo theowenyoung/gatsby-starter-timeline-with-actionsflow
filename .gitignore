@@ -5,7 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .actionsflow
+.secrets
 dist
+*.env
 # Runtime data
 pids
 *.pid

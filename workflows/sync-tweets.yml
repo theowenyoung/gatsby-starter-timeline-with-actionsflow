@@ -76,7 +76,7 @@ jobs:
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
   local:
-    name: Only Sync Tweets to JSON
+    name: Only Sync Tweets to JSON for local test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
